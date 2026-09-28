@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#08070a">
+
+    <meta name="description"
+          content="Call of Gods — Grimório Digital">
+
+    <title>Call of Gods — Grimório</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="systemIntro">
+
+    <div class="intro-symbol">
+        ✦
+    </div>
+
+    <div class="intro-line"></div>
+
+    <h1>CALL OF GODS</h1>
+
+    <p>ΤΟ ΚΑΛΕΣΜΑ ΤΩΝ ΘΕΩΝ</p>
+
+    <span>SISTEMA DIVINO</span>
+
+    <div class="intro-loading">
+        <div></div>
+    </div>
+
+</div>
+
+
+<div class="background">
+
+    <div class="stars"></div>
+
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+
+</div>
+
+
+<header class="topbar">
+
+    <button class="brand" data-page="home">
+
+        <div class="brand-symbol">
+            ✦
+        </div>
+
+        <div>
+            <strong>CALL OF GODS</strong>
+            <small>GRIMÓRIO DIGITAL</small>
+        </div>
+
+    </button>
+
+
+    <nav id="mainNavigation">
+
+        <button data-page="home">
+            INÍCIO
+        </button>
+
+        <button data-page="character">
+            PERSONAGEM
+        </button>
+
+        <button data-page="skills">
+            SKILL TREE
+        </button>
+
+        <button data-page="system">
+            SISTEMA
+        </button>
+
+        <button data-page="lore">
+            O CHAMADO
+        </button>
+
+    </nav>
+
+
+    <button id="mobileMenu"
+            class="mobile-menu">
+        ☰
+    </button>
+
+</header>
+
+
+<main>
+
+
+<!-- ═════════════════════════════════════ -->
+<!-- HOME -->
+<!-- ═════════════════════════════════════ -->
+
+<section id="home"
+         class="page active">
+
+    <div class="hero">
+
+        <div class="greek-ornament">
+            ✦ ───────────── ✦
+        </div>
+
+        <span class="eyebrow">
+            SISTEMA DIVINO ONLINE
+        </span>
+
+        <h1>
+            CALL
+            <em>OF</em>
+            GODS
+        </h1>
+
+        <p class="hero-subtitle">
+            Os mitos não morreram.
+            Eles apenas aprenderam a se esconder.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="btn-primary"
+                    data-page="character">
+
+                ABRIR GRIMÓRIO
+
+            </button>
+
+            <button class="btn-secondary"
+                    data-page="skills">
+
+                EXPLORAR SKILL TREE
+
+            </button>
+
+        </div>
+
+        <div class="hero-status">
+
+            <span>
+                ● SISTEMA ONLINE
+            </span>
+
+            <span>
+                ✦ O CHAMADO AGUARDA
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="portal-grid">
+
+
+        <article class="portal-card">
+
+            <div class="portal-icon">
+                ♙
+            </div>
+
+            <span>01</span>
+
+            <h2>
+                PERSONAGEM
+            </h2>
+
+            <p>
+                Crie sua identidade,
+                atributos, perícias,
+                história e vínculo divino.
+            </p>
+
+            <button data-page="character">
+                ACESSAR →
+            </button>
+
+        </article>
+
+
+        <article class="portal-card">
+
+            <div class="portal-icon">
+                ◈
+            </div>
+
+            <span>02</span>
+
+            <h2>
+                SKILL TREE
+            </h2>
+
+            <p>
+                Evolua livremente.
+                Seus níveis concedem pontos,
+                mas o caminho é seu.
+            </p>
+
+            <button data-page="skills">
+                ACESSAR →
+            </button>
+
+        </article>
+
+
+        <article class="portal-card">
+
+            <div class="portal-icon">
+                Ω
+            </div>
+
+            <span>03</span>
+
+            <h2>
+                O CHAMADO
+            </h2>
+
+            <p>
+                Algo despertou.
+                Os deuses sabem mais
+                do que dizem.
+            </p>
+
+            <button data-page="lore">
+                ACESSAR →
+            </button>
+
+        </article>
+
+
+    </div>
+
+
+    <div class="quote-panel">
+
+        <div class="quote-mark">
+            “
+        </div>
+
+        <p>
+            Talvez seja coincidência.
+            Talvez seja destino.
+        </p>
+
+        <strong>
+            Ou talvez o Chamado já tenha
+            escolhido seus primeiros nomes.
+        </strong>
+
+    </div>
+
+</section>
+
+
+
+<!-- ═════════════════════════════════════ -->
+<!-- PERSONAGEM -->
+<!-- ═════════════════════════════════════ -->
+
+<section id="character"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                GRIMÓRIO DO MORTAL
+            </span>
+
+            <h1>
+                PERSONAGEM
+            </h1>
+
+        </div>
+
+        <div class="page-actions">
+
+            <button class="btn-secondary"
+                    id="newCharacter">
+
+                NOVO
+
+            </button>
+
+            <button class="btn-secondary"
+                    id="manageCharacters">
+
+                PERSONAGENS
+
+            </button>
+
+            <button class="btn-primary"
+                    id="exportCharacter">
+
+                EXPORTAR
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="save-indicator">
+
+        <span id="saveStatus">
+            ● SALVO
+        </span>
+
+        <span id="characterNameDisplay">
+            PERSONAGEM SEM NOME
+        </span>
+
+    </div>
+
+
+    <div class="character-layout">
+
+
+        <!-- IDENTIDADE -->
+
+        <aside class="identity-panel">
+
+            <div class="marble-header">
+
+                <span>
+                    IDENTIDADE
+                </span>
+
+            </div>
+
+
+            <div class="portrait">
+
+                <div>
+                    ✦
+                </div>
+
+                <small>
+                    MARCA DO DESTINO
+                </small>
+
+            </div>
+
+
+            <label>
+                Nome
+
+                <input
+                    data-field="name"
+                    placeholder="Nome">
+            </label>
+
+
+            <label>
+                Idade
+
+                <input
+                    data-field="age"
+                    type="number"
+                    min="0">
+            </label>
+
+
+            <label>
+                Raça
+
+                <input
+                    data-field="race"
+                    value="Humano">
+            </label>
+
+
+            <label>
+                Origem
+
+                <input
+                    data-field="origin"
+                    placeholder="Cidade, reino...">
+            </label>
+
+
+            <label>
+                Classe
+
+                <select data-field="class">
+
+                    <option>
+                        Vanguarda
+                    </option>
+
+                    <option>
+                        Virtuoso
+                    </option>
+
+                    <option>
+                        Místico
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Vínculo Divino
+
+                <select data-field="divineType">
+
+                    <option>
+                        Filho dos Deuses
+                    </option>
+
+                    <option>
+                        Marcado
+                    </option>
+
+                    <option>
+                        Abençoado
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Divindade
+
+                <select data-field="god">
+
+                    <option>Hebe</option>
+                    <option>Zeus</option>
+                    <option>Poseidon</option>
+                    <option>Hades</option>
+                    <option>Ares</option>
+                    <option>Athena</option>
+                    <option>Hermes</option>
+                    <option>Apollo</option>
+                    <option>Artemis</option>
+                    <option>Hephaestus</option>
+                    <option>Aphrodite</option>
+                    <option>Demeter</option>
+                    <option>Dionysus</option>
+
+                    <option>Odin</option>
+                    <option>Thor</option>
+                    <option>Loki</option>
+                    <option>Freyja</option>
+                    <option>Freyr</option>
+                    <option>Tyr</option>
+                    <option>Heimdall</option>
+                    <option>Baldr</option>
+                    <option>Hel</option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Título
+
+                <input
+                    data-field="title"
+                    placeholder="Título ou apelido">
+            </label>
+
+        </aside>
+
+
+
+        <div class="character-content">
+
+
+            <!-- STATUS -->
+
+            <div class="status-grid">
+
+                <div class="status-card">
+                    <span>❤️ PV</span>
+                    <strong id="pv">
+                        50
+                    </strong>
+                    <small>
+                        50 + Vigor × 10
+                    </small>
+                </div>
+
+
+                <div class="status-card">
+                    <span>🔮 PE</span>
+                    <strong id="pe">
+                        30
+                    </strong>
+                    <small>
+                        30 + Espírito × 5
+                    </small>
+                </div>
+
+
+                <div class="status-card">
+                    <span>🛡 DEFESA</span>
+                    <strong id="defense">
+                        0
+                    </strong>
+                    <small>
+                        Baseada em Vigor
+                    </small>
+                </div>
+
+
+                <div class="status-card">
+                    <span>⚡ INICIATIVA</span>
+                    <strong id="initiative">
+                        0
+                    </strong>
+                    <small>
+                        Agilidade + Percepção
+                    </small>
+                </div>
+
+            </div>
+
+
+
+            <!-- ATRIBUTOS -->
+
+            <div class="stone-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <span>
+                            PILARES DO MORTAL
+                        </span>
+
+                        <h2>
+                            ATRIBUTOS
+                        </h2>
+                    </div>
+
+                    <small>
+                        0 — 35
+                    </small>
+
+                </div>
+
+                <div id="attributes"
+                     class="attribute-grid">
+                </div>
+
+            </div>
+
+
+
+            <!-- PERÍCIAS -->
+
+            <div class="stone-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <span>
+                            CONHECIMENTO
+                        </span>
+
+                        <h2>
+                            PERÍCIAS
+                        </h2>
+
+                    </div>
+
+                    <small>
+                        ATRIBUTO + BÔNUS
+                    </small>
+
+                </div>
+
+                <div id="skills"
+                     class="skills-grid">
+                </div>
+
+            </div>
+
+
+
+            <!-- TEXTOS -->
+
+            <div class="stone-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <span>
+                            REGISTROS
+                        </span>
+
+                        <h2>
+                            HISTÓRIA
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="text-grid">
+
+                    <label>
+                        Personalidade
+                        <textarea
+                            data-field="personality"></textarea>
+                    </label>
+
+
+                    <label>
+                        Objetivos
+                        <textarea
+                            data-field="goals"></textarea>
+                    </label>
+
+
+                    <label>
+                        História
+                        <textarea
+                            data-field="history"></textarea>
+                    </label>
+
+
+                    <label>
+                        O Chamado
+                        <textarea
+                            data-field="calling"></textarea>
+                    </label>
+
+
+                    <label>
+                        Poderes e Habilidades
+                        <textarea
+                            data-field="powers"></textarea>
+                    </label>
+
+
+                    <label>
+                        Equipamentos
+                        <textarea
+                            data-field="equipment"></textarea>
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ═════════════════════════════════════ -->
+<!-- SKILL TREE -->
+<!-- ═════════════════════════════════════ -->
+
+<section id="skillsPage"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                CAMINHO DO DESTINO
+            </span>
+
+            <h1>
+                SKILL TREE
+            </h1>
+
+        </div>
+
+
+        <div class="tree-controls">
+
+            <select id="treeClass">
+
+                <option>Vanguarda</option>
+                <option>Virtuoso</option>
+                <option>Místico</option>
+
+            </select>
+
+
+            <label>
+                NÍVEL
+
+                <input
+                    id="level"
+                    type="number"
+                    min="1"
+                    max="20"
+                    value="20">
+
+            </label>
+
+
+            <div class="skill-points">
+                ✦
+                <span id="points">
+                    57
+                </span>
+                PONTOS
+            </div>
+
+
+            <button
+                class="btn-secondary"
+                id="resetTree">
+
+                RESETAR
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="tree-layout">
+
+
+        <div class="tree-container">
+
+            <div id="treeCanvas">
+
+                <!-- preenchido pelo JS -->
+
+            </div>
+
+        </div>
+
+
+        <aside
+            id="nodeInfo"
+            class="node-info">
+
+            <div class="node-empty">
+
+                <div>
+                    ✦
+                </div>
+
+                <h2>
+                    SELECIONE UMA HABILIDADE
+                </h2>
+
+                <p>
+                    Escolha um selo na árvore
+                    para consultar seus efeitos.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</section>
+
+
+
+<!-- ═════════════════════════════════════ -->
+<!-- SISTEMA -->
+<!-- ═════════════════════════════════════ -->
+
+<section id="system"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                CÓDICE DO SISTEMA
+            </span>
+
+            <h1>
+                SISTEMA
+            </h1>
+
+        </div>
+
+    </div>
+
+
+    <div class="rules-grid">
+
+
+        <article class="stone-panel">
+
+            <span class="rule-number">
+                I
+            </span>
+
+            <h2>
+                TESTES
+            </h2>
+
+            <p>
+                O atributo determina a quantidade
+                de dados que você rola.
+            </p>
+
+            <div class="formula">
+                ATRIBUTO d5
+                +
+                BÔNUS
+            </div>
+
+            <p>
+                Exemplo:
+                Força 3 + Luta +6 =
+                <b>3d5 + 6</b>.
+            </p>
+
+        </article>
+
+
+        <article class="stone-panel">
+
+            <span class="rule-number">
+                II
+            </span>
+
+            <h2>
+                DIFICULDADES
+            </h2>
+
+            <ul>
+                <li>5 — Muito Fácil</li>
+                <li>10 — Fácil</li>
+                <li>15 — Normal</li>
+                <li>20 — Difícil</li>
+                <li>25 — Muito Difícil</li>
+                <li>30 — Extremo</li>
+                <li>35+ — Divino</li>
+            </ul>
+
+        </article>
+
+
+        <article class="stone-panel">
+
+            <span class="rule-number">
+                III
+            </span>
+
+            <h2>
+                RESULTADOS
+            </h2>
+
+            <p>
+                <b>Falha Crítica</b>
+                — todos os dados mostram 1.
+            </p>
+
+            <p>
+                <b>Falha</b>
+                — resultado abaixo da dificuldade.
+            </p>
+
+            <p>
+                <b>Sucesso</b>
+                — resultado igual ou superior.
+            </p>
+
+            <p>
+                <b>Sucesso Crítico</b>
+                — todos os dados mostram 5.
+            </p>
+
+        </article>
+
+
+        <article class="stone-panel">
+
+            <span class="rule-number">
+                IV
+            </span>
+
+            <h2>
+                STATUS
+            </h2>
+
+            <p>
+                PV = 50 + Vigor × 10
+            </p>
+
+            <p>
+                PE = 30 + Espírito × 5
+            </p>
+
+            <p>
+                Iniciativa =
+                Agilidade + Percepção
+            </p>
+
+            <p>
+                Redução de Dano =
+                Defesa ÷ 2
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <div class="divine-links">
+
+        <h2>
+            VÍNCULOS DIVINOS
+        </h2>
+
+        <div class="divine-grid">
+
+            <article>
+                <span>Ⅰ</span>
+                <h3>
+                    FILHOS DOS DEUSES
+                </h3>
+                <p>
+                    Nascidos de uma divindade
+                    e um mortal.
+                    Recebem +2 benefícios.
+                </p>
+            </article>
+
+
+            <article>
+                <span>Ⅱ</span>
+                <h3>
+                    MARCADOS
+                </h3>
+                <p>
+                    Escolhidos diretamente
+                    por uma divindade.
+                    Recebem +2 benefícios.
+                </p>
+            </article>
+
+
+            <article>
+                <span>Ⅲ</span>
+                <h3>
+                    ABENÇOADOS
+                </h3>
+                <p>
+                    Recebem um favor divino.
+                    Recebem +1 benefício.
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ═════════════════════════════════════ -->
+<!-- LORE -->
+<!-- ═════════════════════════════════════ -->
+
+<section id="lore"
+         class="page">
+
+    <div class="lore-screen">
+
+        <div class="greek-ornament">
+            ✦ ───────── ✦
+        </div>
+
+        <span class="eyebrow">
+            REGISTRO ANTIGO
+        </span>
+
+        <h1>
+            O CHAMADO
+        </h1>
+
+        <div class="lore-text">
+
+            <p>
+                Humanidade contou histórias de deuses,
+                monstros e heróis durante milhares de anos.
+            </p>
+
+            <p>
+                Com o tempo, essas histórias receberam
+                outro nome:
+                <strong>mitologia.</strong>
+            </p>
+
+            <p>
+                Mas os deuses nunca desapareceram.
+            </p>
+
+            <p>
+                Olympus continua existindo.
+                Asgard permanece além dos olhos mortais.
+                Criaturas antigas caminham pelo mundo.
+            </p>
+
+            <p>
+                E agora algo mudou.
+            </p>
+
+            <div class="lore-warning">
+                O CHAMADO DESPERTOU.
+            </div>
+
+            <p>
+                Criaturas aparecem onde não deveriam.
+                Artefatos esquecidos começam a despertar.
+            </p>
+
+            <p>
+                Algumas pessoas sonham com lugares
+                que nunca conheceram.
+            </p>
+
+            <p>
+                Outras escutam uma voz.
+            </p>
+
+            <p>
+                Os deuses conhecem o fenômeno.
+            </p>
+
+            <p>
+                Mas eles não falam sobre ele.
+            </p>
+
+            <div class="final-prophecy">
+
+                <span>
+                    ΤΟ ΚΑΛΕΣΜΑ
+                </span>
+
+                <p>
+                    Talvez seja coincidência.
+                    Talvez seja destino.
+                </p>
+
+                <strong>
+                    Ou talvez o Chamado já tenha
+                    escolhido seus primeiros nomes.
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
+<footer>
+
+    <span>
+        CALL OF GODS
+    </span>
+
+    <small>
+        O DESTINO NÃO PERGUNTA.
+    </small>
+
+</footer>
+
+
+
+<div id="modal"
+     class="modal">
+
+    <div class="modal-window">
+
+        <button id="closeModal"
+                class="modal-close">
+            ×
+        </button>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+                  </html>

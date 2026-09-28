@@ -1,1 +1,11 @@
-
+{
+    "name": "Call of Gods — Grimório Digital",
+    "short_name": "Call of Gods",
+    "description": "Sistema digital oficial do RPG Call of Gods.",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#070609",
+    "theme_color": "#08070a",
+    "lang": "pt-BR",
+    "icons": []
+}

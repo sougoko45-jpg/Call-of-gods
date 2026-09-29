@@ -1,746 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#09070d">
-<meta name="description" content="CALL OF GODS — RPG • Oráculo Digital">
-<title>CALL OF GODS — Oráculo Digital</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Call of Gods — Skill Tree</title>
 <style>
-:root{
-  --bg:#08070b; --panel:#111019; --panel2:#171421; --panel3:#0d0b12;
-  --purple:#7b4bd3; --purple2:#b38cff; --gold:#c9a45a; --gold2:#f0d38a;
-  --bronze:#8f6b3f; --ink:#eee8dc; --muted:#a69eac; --line:rgba(201,164,90,.24);
-  --good:#79d7a5; --bad:#d77a86; --blue:#75b8e8; --shadow:0 20px 60px rgba(0,0,0,.42);
-  --radius:16px; --nav:250px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0; min-height:100vh; background:
-  radial-gradient(circle at 75% 10%,rgba(123,75,211,.13),transparent 28%),
-  radial-gradient(circle at 15% 85%,rgba(201,164,90,.06),transparent 30%),
-  linear-gradient(145deg,#07060a,#0c0911 55%,#08070b);
-  color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  overflow-x:hidden;
-}
-body:before{
-  content:"";position:fixed;inset:0;pointer-events:none;opacity:.035;
-  background-image:linear-gradient(90deg,transparent 49%,#fff 50%,transparent 51%),linear-gradient(0deg,transparent 49%,#fff 50%,transparent 51%);
-  background-size:42px 42px; mix-blend-mode:screen;
-}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-::selection{background:rgba(123,75,211,.45);color:#fff}
-.app{display:flex;min-height:100vh}
-.sidebar{
-  position:fixed;z-index:30;top:0;left:0;bottom:0;width:var(--nav);
-  background:linear-gradient(180deg,rgba(14,11,20,.97),rgba(7,6,10,.98));
-  border-right:1px solid var(--line);box-shadow:20px 0 60px rgba(0,0,0,.25);
-  padding:22px 16px;display:flex;flex-direction:column;
-}
-.brand{padding:4px 8px 22px;border-bottom:1px solid var(--line)}
-.brand small{display:block;color:var(--gold);letter-spacing:.24em;font-size:.66rem}
-.brand h1{font-family:Georgia,serif;font-size:1.32rem;letter-spacing:.12em;margin:7px 0 3px}
-.brand p{font-size:.67rem;color:var(--muted);letter-spacing:.12em;margin:0}
-.nav{padding:20px 0;display:grid;gap:7px}
-.nav button{
-  width:100%;border:1px solid transparent;background:transparent;color:#b8b0bd;text-align:left;
-  padding:12px 12px;border-radius:11px;transition:.2s;letter-spacing:.06em;font-size:.76rem
-}
-.nav button:hover,.nav button.active{background:rgba(123,75,211,.11);border-color:rgba(123,75,211,.25);color:#fff}
-.nav button.active{box-shadow:inset 3px 0 var(--gold)}
-.nav .ico{display:inline-block;width:27px;color:var(--gold);font-size:1rem}
-.side-foot{margin-top:auto;color:#6f6875;font-size:.62rem;line-height:1.5;padding:8px}
-.main{margin-left:var(--nav);width:calc(100% - var(--nav));min-width:0}
-.topbar{
-  position:sticky;top:0;z-index:20;height:62px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;background:rgba(8,7,11,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)
-}
-.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 10px var(--good);margin-right:8px}
-.save-state{font-size:.7rem;color:var(--muted)}
-.quick-actions{display:flex;gap:8px}
-.btn{
-  border:1px solid var(--line);background:rgba(201,164,90,.06);color:var(--ink);padding:9px 13px;border-radius:9px;
-  transition:.2s;letter-spacing:.04em;font-size:.73rem
-}
-.btn:hover{border-color:rgba(201,164,90,.55);transform:translateY(-1px);background:rgba(201,164,90,.11)}
-.btn.primary{background:linear-gradient(135deg,#5d36a7,#8a58df);border-color:#9c72e5;color:white}
-.btn.danger{border-color:rgba(215,122,134,.4);color:#efabb4}
-.content{padding:34px;max-width:1500px;margin:auto}
-.page{display:none;animation:pageIn .3s ease}
-.page.active{display:block}
-@keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.eyebrow{color:var(--gold);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase}
-.hero{
-  min-height:480px;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;
-  border:1px solid var(--line);border-radius:24px;background:
-  radial-gradient(circle at center,rgba(123,75,211,.14),transparent 45%),
-  linear-gradient(135deg,rgba(255,255,255,.025),transparent 50%);
-  box-shadow:var(--shadow)
-}
-.hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(201,164,90,.16);border-radius:50%;pointer-events:none}
-.hero:before{width:360px;height:360px;transform:rotate(17deg)}
-.hero:after{width:500px;height:500px;border-style:dashed;opacity:.5}
-.constellation{position:absolute;inset:0;opacity:.18;background-image:radial-gradient(#e6d2a5 1px,transparent 1px);background-size:57px 57px}
-.hero-inner{position:relative;z-index:2;padding:45px 20px;max-width:850px}
-.hero h2{font-family:Georgia,serif;font-size:clamp(2.3rem,7vw,5.6rem);letter-spacing:.13em;margin:12px 0;color:#f4eee3;text-shadow:0 0 35px rgba(179,140,255,.18)}
-.hero .tagline{max-width:720px;margin:0 auto 28px;color:#c6becb;font-family:Georgia,serif;font-style:italic;font-size:clamp(.95rem,2vw,1.18rem);line-height:1.75}
-.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.section-title{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:36px 0 14px}
-.section-title h3{font-family:Georgia,serif;font-weight:500;font-size:1.25rem;margin:0}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
-.card{
-  background:linear-gradient(145deg,rgba(23,20,33,.95),rgba(12,10,16,.95));border:1px solid var(--line);
-  border-radius:var(--radius);padding:20px;box-shadow:0 12px 40px rgba(0,0,0,.18);position:relative;overflow:hidden
-}
-.card:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.035),transparent 35%)}
-.card .symbol{font-size:1.5rem;color:var(--gold);margin-bottom:9px}
-.card h4{margin:0 0 8px;font-family:Georgia,serif;font-size:1rem;letter-spacing:.04em}
-.card p{color:var(--muted);font-size:.84rem;line-height:1.65;margin:0}
-.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:16px}
-.panel-head h3{margin:0;font-family:Georgia,serif;font-weight:500}
-.form-section{margin-bottom:16px}
-.form-section h4{font-family:Georgia,serif;font-weight:500;color:var(--gold2);margin:0 0 12px;font-size:.95rem}
-.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
-.field{display:flex;flex-direction:column;gap:6px}
-.field.full{grid-column:1/-1}
-.field label{font-size:.68rem;color:#9d95a2;letter-spacing:.12em;text-transform:uppercase}
-input,textarea,select{
-  width:100%;background:#0b0910;border:1px solid rgba(201,164,90,.17);color:#eee8dc;border-radius:9px;
-  padding:10px 11px;outline:none;transition:.2s
-}
-input:focus,textarea:focus,select:focus{border-color:rgba(179,140,255,.7);box-shadow:0 0 0 3px rgba(123,75,211,.1)}
-textarea{min-height:110px;resize:vertical;line-height:1.5}
-.character-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(290px,.8fr);gap:15px}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.stat{
-  border:1px solid rgba(179,140,255,.18);background:rgba(123,75,211,.045);border-radius:12px;padding:13px;
-}
-.stat-head{display:flex;justify-content:space-between;gap:8px;align-items:center}
-.stat-name{font-size:.69rem;letter-spacing:.13em;color:#bdb4c4}
-.stat-value{font-size:1.35rem;color:var(--gold2);font-family:Georgia,serif}
-.stat-controls{display:flex;gap:5px;margin-top:9px}
-.stat-controls button{flex:1;border:1px solid rgba(201,164,90,.2);background:#0b0910;color:#c9a45a;border-radius:7px;height:30px}
-.stat-controls button:hover{background:rgba(201,164,90,.08)}
-.status-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.status-box{padding:12px;border-left:2px solid var(--gold);background:rgba(255,255,255,.025);border-radius:0 9px 9px 0}
-.status-box small{display:block;color:#847b8b;font-size:.62rem;letter-spacing:.1em}
-.status-box strong{display:block;font-size:1.15rem;margin-top:2px}
-.skill-list{display:grid;gap:12px}
-.skill-group{border:1px solid rgba(201,164,90,.14);border-radius:12px;padding:13px;background:rgba(0,0,0,.12)}
-.skill-group h5{margin:0 0 9px;color:var(--gold2);font-family:Georgia,serif}
-.skill-row{display:grid;grid-template-columns:1fr 72px;gap:9px;align-items:center;margin:6px 0}
-.skill-row label{font-size:.75rem;color:#c5beca}
-.skill-row input{text-align:center;padding:8px}
-.chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:.68rem;color:#bdb4c4}
-.class-grid,.bond-grid,.pantheon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.select-card{padding:17px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.018);cursor:pointer;transition:.2s}
-.select-card:hover,.select-card.selected{border-color:rgba(179,140,255,.65);background:rgba(123,75,211,.09)}
-.select-card.selected{box-shadow:0 0 0 1px rgba(201,164,90,.18) inset}
-.select-card h4{margin:0 0 6px;color:#f1e9dc;font-family:Georgia,serif}
-.select-card p{font-size:.75rem;line-height:1.55;color:var(--muted);margin:0}
-.meta{font-size:.65rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase}
-.tree-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:15px}
-.points{padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:rgba(201,164,90,.05)}
-.points strong{color:var(--gold2)}
-.tree-shell{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:15px}
-.tree{
-  min-height:700px;position:relative;overflow:auto;border:1px solid var(--line);border-radius:18px;
-  background:
-   radial-gradient(circle at 50% 20%,rgba(123,75,211,.11),transparent 35%),
-   linear-gradient(180deg,#100c18,#0b0910);
-  padding:35px 25px;
-}
-.tree-inner{min-width:850px;position:relative;height:760px}
-.tree-lines{position:absolute;inset:0;pointer-events:none}
-.tree-lines line{stroke:rgba(201,164,90,.2);stroke-width:2}
-.tree-lines line.live{stroke:rgba(179,140,255,.62);filter:drop-shadow(0 0 4px rgba(179,140,255,.35))}
-.node{
-  position:absolute;width:135px;min-height:72px;transform:translate(-50%,-50%);border-radius:13px;
-  border:1px solid rgba(201,164,90,.25);background:linear-gradient(145deg,#1a1425,#0c0a10);
-  padding:9px;text-align:center;transition:.2s;z-index:2;color:#d6cfda
-}
-.node:hover{transform:translate(-50%,-50%) scale(1.035);border-color:rgba(201,164,90,.7)}
-.node .node-name{font-size:.72rem;font-weight:700}
-.node .node-cost{font-size:.58rem;color:var(--gold);margin-top:4px}
-.node.locked{opacity:.42;filter:saturate(.55)}
-.node.available{border-color:rgba(117,184,232,.65);box-shadow:0 0 18px rgba(117,184,232,.1)}
-.node.unlocked{border-color:rgba(121,215,165,.65);background:linear-gradient(145deg,rgba(40,88,70,.45),#0c0a10);box-shadow:0 0 20px rgba(121,215,165,.1)}
-.tree-info{position:sticky;top:78px;align-self:start}
-.info-empty{color:var(--muted);font-size:.82rem;line-height:1.65}
-.info-name{font-family:Georgia,serif;font-size:1.25rem;margin:0 0 6px}
-.info-effect{border-left:2px solid var(--purple2);padding-left:10px;margin:15px 0;color:#c9c0d0;font-size:.82rem;line-height:1.55}
-.requirements{font-size:.72rem;color:#a79fac;line-height:1.6}
-.lore{max-width:950px;margin:auto}
-.lore p{font-family:Georgia,serif;color:#c7beca;line-height:1.9;font-size:1rem}
-.quote{border-left:2px solid var(--gold);padding:8px 0 8px 20px;color:#e7dcc7;font-family:Georgia,serif;font-style:italic}
-.gods-layout{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.god-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.god{
-  border:1px solid rgba(201,164,90,.15);padding:13px;border-radius:11px;background:rgba(255,255,255,.015)
-}
-.god h4{margin:0 0 4px;font-family:Georgia,serif}.god p{margin:0;color:var(--muted);font-size:.72rem;line-height:1.45}
-.rivals{display:grid;gap:8px}
-.rival{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid rgba(201,164,90,.1);padding:10px 2px;font-size:.78rem}
-.rival span{color:var(--gold)} 
-.system-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:15px}
-.table-wrap{overflow:auto}
-table{width:100%;border-collapse:collapse;font-size:.75rem}
-th,td{text-align:left;padding:10px;border-bottom:1px solid rgba(201,164,90,.12)}
-th{color:var(--gold2);font-weight:500}
-.rollbox{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.rollbox .field{grid-column:auto}
-.roll-result{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:15px;background:rgba(123,75,211,.06)}
-.roll-result strong{font-family:Georgia,serif;font-size:1.15rem}
-.dice{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.die{width:34px;height:34px;border:1px solid var(--gold);display:grid;place-items:center;border-radius:7px;background:#0b0910;color:var(--gold2);font-weight:700}
-.save-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
-.code-area{min-height:180px;font-family:ui-monospace,monospace;font-size:.72rem}
-.toast{
- position:fixed;right:18px;bottom:18px;z-index:100;padding:11px 14px;border:1px solid var(--line);border-radius:10px;
- background:#17131f;color:#eee8dc;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;font-size:.75rem
-}
-.toast.show{opacity:1;transform:none}
-.mobile-nav{display:none}
-.particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.particles i{position:absolute;width:2px;height:2px;background:#d8c58f;border-radius:50%;opacity:.25;animation:float 8s linear infinite}
-@keyframes float{from{transform:translateY(100vh);opacity:0}20%{opacity:.25}90%{opacity:.08}to{transform:translateY(-10vh);opacity:0}}
-@media(max-width:1050px){
- .sidebar{width:215px}.main{margin-left:215px;width:calc(100% - 215px)}
- .content{padding:24px}.character-layout,.tree-shell,.system-grid{grid-template-columns:1fr}
- .tree-info{position:relative;top:auto}.tree{min-height:650px}
-}
-@media(max-width:760px){
- :root{--nav:0px}.sidebar{display:none}.main{margin:0;width:100%}.topbar{padding:0 13px;height:56px}
- .quick-actions .btn:nth-child(1){display:none}.content{padding:14px 12px 90px}.hero{min-height:460px;border-radius:17px}
- .grid3,.grid2,.class-grid,.bond-grid,.pantheon-grid,.gods-layout,.save-grid{grid-template-columns:1fr}
- .form-grid{grid-template-columns:1fr 1fr}.field.full{grid-column:1/-1}.stat-grid{grid-template-columns:1fr 1fr}
- .god-grid{grid-template-columns:1fr}.rollbox{grid-template-columns:1fr 1fr}
- .mobile-nav{
-   position:fixed;display:flex;z-index:40;bottom:0;left:0;right:0;height:66px;padding:7px 6px env(safe-area-inset-bottom);
-   background:rgba(8,7,11,.95);backdrop-filter:blur(15px);border-top:1px solid var(--line);justify-content:space-around
- }
- .mobile-nav button{border:0;background:transparent;color:#827986;font-size:.58rem;display:grid;gap:2px;place-items:center;min-width:52px}
- .mobile-nav button span:first-child{font-size:1.1rem;color:var(--gold)}.mobile-nav button.active{color:#fff}
- .tree{padding:20px 10px}.tree-inner{min-width:760px}
- .section-title{margin-top:25px}.hero h2{letter-spacing:.08em}.hero .tagline{line-height:1.55}
-}
-@media(max-width:430px){
- .form-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}.rollbox{grid-template-columns:1fr}
- .hero-actions .btn{width:100%}.hero{min-height:430px}.content{padding-left:9px;padding-right:9px}
-}
-
-/* COMMAND CENTER / CRIS-LIKE INFORMATION DENSITY */
-:root{
- --hud:#0a0910; --hudline:rgba(179,140,255,.18); --cyan:#8bc9e8;
-}
-.topbar:before{content:"SYSTEM // CALL OF GODS";font-family:ui-monospace,monospace;color:#71687a;font-size:.62rem;letter-spacing:.18em;position:absolute;left:50%;transform:translateX(-50%)}
-.command-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:15px}
-.command-cell{border:1px solid var(--hudline);background:rgba(10,9,16,.72);padding:9px 11px;border-radius:8px;min-width:0}
-.command-cell small{display:block;color:#655e6c;font:10px ui-monospace,monospace;letter-spacing:.13em}
-.command-cell strong{display:block;color:#d9d1df;font:11px ui-monospace,monospace;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.command-cell strong.live{color:var(--good)}
-.module{
- border:1px solid var(--hudline);background:linear-gradient(180deg,rgba(17,15,24,.96),rgba(9,8,13,.96));
- border-radius:12px;box-shadow:0 10px 35px rgba(0,0,0,.2);overflow:hidden
-}
-.module-head{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--hudline);background:rgba(255,255,255,.018)}
-.module-head .mh-title{font:700 11px ui-monospace,monospace;letter-spacing:.13em;color:#d7d0dc}
-.module-head .mh-state{font:9px ui-monospace,monospace;color:#6e6675}
-.dashboard-grid{display:grid;grid-template-columns:1.45fr .8fr .8fr;gap:10px;margin-bottom:15px}
-.readout{padding:15px}.readout .label{font:9px ui-monospace,monospace;color:#77707e;letter-spacing:.14em}.readout .value{font:1.6rem Georgia,serif;color:var(--gold2);margin-top:4px}
-.meter{height:3px;background:#24202a;margin-top:9px;border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--gold));width:65%}
-.page > .section-title:first-child{margin-top:0}
-@media(max-width:760px){
- .topbar:before{display:none}
- .command-strip{grid-template-columns:repeat(2,1fr)}
- .dashboard-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:430px){.dashboard-grid{grid-template-columns:1fr}.command-strip{grid-template-columns:1fr 1fr}}
+:root{--bg:#08070c;--panel:#11101a;--panel2:#171421;--gold:#d2ad68;--gold2:#f1d99f;--purple:#8d4ed0;--purple2:#bd79ff;--text:#f5f0ff;--muted:#aaa1b8;--line:#3b3048;--ok:#72d0a0;--bad:#d56a74}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% 0,#29163a 0,#0b0910 43%,#05050a 100%);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:260px 1fr}
+aside{padding:20px;background:#09080ee8;border-right:1px solid #30263a;position:sticky;top:0;height:100vh}
+.brand{text-align:center;margin-bottom:18px}.sig{font-size:10px;letter-spacing:3px;color:var(--gold)}.brand h1{font:700 23px Georgia,serif;letter-spacing:3px;margin:7px 0}.brand p{font-size:10px;color:var(--muted)}
+.classes{display:grid;gap:7px}.classBtn,.btn{border:1px solid #382b43;background:#12101a;color:var(--text);border-radius:10px;padding:11px 12px}.classBtn{text-align:left}.classBtn.active{border-color:var(--gold);background:#21172a}.classBtn b{display:block}.classBtn small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.box{margin-top:14px;padding:13px;border:1px solid #30263a;border-radius:12px;background:#0e0c14}.box label{font-size:10px;color:var(--muted);display:block;margin-bottom:6px;letter-spacing:1px}.box input{width:100%;background:#08070c;border:1px solid #3b3045;color:#fff;border-radius:8px;padding:9px}
+.sideBtns{display:grid;gap:7px}.btn.primary{background:#7140a8;border-color:#a96de2}.btn.danger{color:#f2abb1;border-color:#66353c}.btn.full{width:100%}
+main{padding:24px;min-width:0}.head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.eyebrow{font-size:10px;letter-spacing:3px;color:var(--gold)}h2.title{font:700 35px Georgia,serif;margin:5px 0}.desc{margin:0;color:var(--muted);max-width:780px}.headBtns{display:flex;gap:7px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:18px 0 12px}.stat{background:#100e16;border:1px solid #30263a;border-radius:11px;padding:12px}.stat span{font-size:9px;color:var(--muted);letter-spacing:1px}.stat strong{display:block;color:var(--gold2);font-size:22px;margin-top:3px}
+.tools{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.tools input,.tools select{background:#0d0b12;color:#eee;border:1px solid #342b3e;border-radius:9px;padding:9px}.tools input{min-width:220px}
+.treeWrap{overflow:auto;border:1px solid #32283d;border-radius:15px;background:linear-gradient(#100d16,#0a080e);min-height:620px}.tree{min-width:1080px;padding:24px 26px 60px}.branch{margin:8px 0 30px}.branchTitle{display:flex;gap:10px;align-items:center;color:var(--gold2);font:600 18px Georgia,serif}.branchTitle:after{content:"";height:1px;background:var(--line);flex:1}.nodes{display:flex;flex-wrap:wrap;gap:13px;margin-top:14px}
+.node{width:180px;min-height:152px;background:#15121d;border:1px solid #43334e;border-radius:13px;padding:12px;position:relative;transition:.18s;user-select:none}.node:hover{transform:translateY(-2px);border-color:#755694}.node.locked{opacity:.55}.node.available{border-color:var(--purple2)}.node.unlocked{border-color:var(--gold);box-shadow:0 0 0 1px #d2ad6820}.rarity{font-size:8px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase}.node h3{font-size:14px;margin:8px 0 5px}.node p{font-size:10px;color:var(--muted);line-height:1.35;min-height:40px;margin:0 0 7px}.meta{font-size:9px;color:#cfc5d8;margin-top:3px}.levelPill{position:absolute;right:8px;top:8px;font-size:8px;background:#251d2d;border:1px solid #4c3b56;border-radius:99px;padding:3px 5px}.progress{height:4px;background:#251d2d;border-radius:99px;overflow:hidden;margin-top:7px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--gold));width:0}.buy{width:100%;margin-top:8px;padding:6px;border-radius:7px;border:1px solid #5e3b73;background:#25172e;color:#fff;font-size:10px}.buy:disabled{opacity:.3;cursor:not-allowed}
+.toast{display:none;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#18131f;border:1px solid #574164;border-radius:10px;padding:10px 15px;z-index:50}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:40;align-items:center;justify-content:center;padding:16px}.modal.open{display:flex}.card{width:min(520px,100%);background:#11101a;border:1px solid #4b3a58;border-radius:15px;padding:19px;box-shadow:0 20px 70px #000}.close{float:right;background:none;border:0;color:#aaa;font-size:23px}.media{height:170px;border-radius:10px;background:radial-gradient(circle,#542b78,#17111e 70%);display:flex;align-items:center;justify-content:center;text-align:center;color:#dbc9eb;font-size:12px;margin:14px 0;overflow:hidden}.media img{width:100%;height:100%;object-fit:cover}.details{display:grid;grid-template-columns:1fr 1fr;gap:7px}.details div{background:#0c0a10;border:1px solid #29212f;border-radius:8px;padding:9px;font-size:11px}.details b{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;margin-bottom:3px}.code{width:100%;min-height:130px;background:#08070c;color:#ddd;border:1px solid #3a3044;border-radius:9px;padding:10px;resize:vertical;margin:10px 0}
+@media(max-width:850px){.app{display:block}aside{position:relative;height:auto;border-right:0;border-bottom:1px solid #30263a;padding:14px}.brand{margin-bottom:10px}.classes{grid-template-columns:repeat(3,1fr)}.classBtn small{display:none}main{padding:14px}.head{display:block}.headBtns{margin-top:10px}.stats{grid-template-columns:repeat(2,1fr)}.treeWrap{min-height:540px}.tree{min-width:930px;padding:18px}.node{width:168px}}
+@media(max-width:500px){.classes{grid-template-columns:1fr}.tools input{min-width:0;width:100%}.details{grid-template-columns:1fr}.title{font-size:29px!important}}
 </style>
 </head>
 <body>
-<div class="particles" aria-hidden="true"></div>
 <div class="app">
-<aside class="sidebar">
-  <div class="brand"><small>ORÁCULO DIGITAL</small><h1>CALL OF GODS</h1><p>RPG SYSTEM • v1.0</p></div>
-  <nav class="nav" aria-label="Navegação principal">
-    <button data-page="home" class="active"><span class="ico">⌂</span> INÍCIO</button>
-    <button data-page="character"><span class="ico">♙</span> PERSONAGEM</button>
-    <button data-page="skills"><span class="ico">✦</span> SKILL TREE</button>
-    <button data-page="system"><span class="ico">⚖</span> SISTEMA</button>
-    <button data-page="lore"><span class="ico">☉</span> O CHAMADO</button>
-    <button data-page="mythology"><span class="ico">♜</span> MITOLOGIA</button>
-    <button data-page="save"><span class="ico">✧</span> SALVAR</button>
-  </nav>
-  <div class="side-foot">LOCAL • OFFLINE READY<br>Os dados pertencem ao seu navegador.</div>
+<aside>
+ <div class="brand"><div class="sig">╬ CALL OF GODS ╬</div><h1>SKILL TREE</h1><p>Greek Ancient × Dark Fantasy</p></div>
+ <div class="classes" id="classes"></div>
+ <div class="box"><label>NÍVEL DO PERSONAGEM</label><input id="level" type="number" min="1" max="20" value="1"><div style="font-size:9px;color:var(--muted);margin-top:7px">+3 pontos por nível após o nível 1.</div></div>
+ <div class="box"><label>BUILD</label><div class="sideBtns"><button class="btn primary full" id="save">💾 Salvar / Exportar</button><button class="btn full" id="import">📥 Importar build</button><button class="btn danger full" id="reset">↺ Resetar árvore</button></div></div>
 </aside>
-
-<main class="main">
-<header class="topbar">
-  <div class="save-state"><span class="status-dot"></span><span id="saveState">ORÁCULO SINCRONIZADO</span></div>
-  <div class="quick-actions">
-    <button class="btn" id="quickSave">SALVAR AGORA</button>
-    <button class="btn primary" data-page-jump="character">ABRIR FICHA</button>
-  </div>
-</header>
-
-<div class="content">
-<div class="command-strip" aria-label="Status do sistema">
-  <div class="command-cell"><small>SISTEMA</small><strong class="live">ONLINE // OFFLINE READY</strong></div>
-  <div class="command-cell"><small>PROTOCOLO</small><strong>D5 • ORÁCULO</strong></div>
-  <div class="command-cell"><small>REGISTRO</small><strong id="commandCharacter">SEM PERSONAGEM</strong></div>
-  <div class="command-cell"><small>CLASSE</small><strong id="commandClass">NÃO DEFINIDA</strong></div>
-</div>
-
-<section id="home" class="page active">
-  <div class="hero">
-    <div class="constellation"></div>
-    <div class="hero-inner">
-      <div class="eyebrow">╬ • GREEK ANCIENT × DIGITAL ORACLE • ╬</div>
-      <h2>CALL OF GODS</h2>
-      <p class="tagline">“Talvez seja coincidência.<br>Talvez seja destino.<br>Ou talvez o Chamado já tenha escolhido seus primeiros nomes.”</p>
-      <div class="hero-actions">
-        <button class="btn primary" data-page-jump="character">ABRIR FICHA</button>
-        <button class="btn" data-page-jump="skills">ABRIR SKILL TREE</button>
-      </div>
-    </div>
-  </div>
-  <div class="dashboard-grid">
-  <div class="module"><div class="module-head"><span class="mh-title">IDENTIDADE // REGISTRO</span><span class="mh-state">LOCAL</span></div><div class="readout"><div class="label">PERSONAGEM ATIVO</div><div class="value" id="dashName">NENHUM</div><div class="meter"><i id="dashLevelMeter"></i></div></div></div>
-  <div class="module"><div class="module-head"><span class="mh-title">NÍVEL</span><span class="mh-state">LVL</span></div><div class="readout"><div class="label">PROGRESSÃO</div><div class="value" id="dashLevel">01</div></div></div>
-  <div class="module"><div class="module-head"><span class="mh-title">PONTOS</span><span class="mh-state">SKILL</span></div><div class="readout"><div class="label">DISPONÍVEIS</div><div class="value" id="dashPoints">00</div></div></div>
-</div>
-<div class="section-title"><div><div class="eyebrow">REGISTRO I</div><h3>Os primeiros sinais</h3></div></div>
-  <div class="grid3">
-    <article class="card"><div class="symbol">🏛</div><h4>O MUNDO</h4><p>Os deuses gregos e nórdicos existem no mesmo mundo, escondidos da maioria dos mortais.</p></article>
-    <article class="card"><div class="symbol">✦</div><h4>O CHAMADO</h4><p>Algo antigo despertou. Criaturas aparecem onde não deveriam. Artefatos despertam. Pessoas começam a ter sonhos estranhos e ouvir sussurros.</p></article>
-    <article class="card"><div class="symbol">⚡</div><h4>SEU CAMINHO</h4><p>Crie seu personagem, escolha seu vínculo divino e construa sua própria evolução.</p></article>
-  </div>
-</section>
-
-<section id="character" class="page">
-  <div class="section-title"><div><div class="eyebrow">ORÁCULO • FICHA</div><h3>Registro do Personagem</h3></div><span class="meta" id="classBadge">SEM CLASSE</span></div>
-  <div class="character-layout">
-    <div>
-      <div class="card form-section">
-        <div class="panel-head"><h3>𝑰𝒅𝒆𝒏𝒕𝒊𝒅𝒂𝒅𝒆</h3><span class="meta">REGISTRO</span></div>
-        <div class="form-grid">
-          <div class="field"><label>Nome</label><input data-bind="name" placeholder="Nome do personagem"></div>
-          <div class="field"><label>Idade</label><input data-bind="age" type="number" min="0" max="999"></div>
-          <div class="field"><label>Raça</label><input data-bind="race" placeholder="Humano, descendente..."></div>
-          <div class="field"><label>Origem</label><input data-bind="origin" placeholder="Cidade, reino, região..."></div>
-          <div class="field"><label>Classe</label><select data-bind="class"><option value="">Escolha...</option><option>Vanguarda</option><option>Virtuoso</option><option>Místico</option></select></div>
-          <div class="field"><label>Linhagem / Vínculo Divino</label><input data-bind="bond" placeholder="Filho de Hebe..."></div>
-          <div class="field full"><label>Título / Apelido</label><input data-bind="title" placeholder="O nome pelo qual os outros o conhecem"></div>
-        </div>
-      </div>
-      <div class="card form-section">
-        <div class="panel-head"><h3>𝑷𝒆𝒓𝒔𝒐𝒏𝒂𝒍𝒊𝒅𝒂𝒅𝒆</h3></div>
-        <div class="form-grid">
-          <div class="field full"><label>Personalidade</label><textarea data-bind="personality"></textarea></div>
-          <div class="field"><label>Gostos</label><textarea data-bind="likes"></textarea></div>
-          <div class="field"><label>Desgostos</label><textarea data-bind="dislikes"></textarea></div>
-          <div class="field"><label>Medos</label><textarea data-bind="fears"></textarea></div>
-          <div class="field full"><label>Objetivos</label><textarea data-bind="goals"></textarea></div>
-        </div>
-      </div>
-      <div class="card form-section">
-        <div class="panel-head"><h3>𝑯𝒊𝒔𝒕𝒐́𝒓𝒊𝒂</h3></div>
-        <div class="field"><label>História do personagem</label><textarea data-bind="history" style="min-height:180px"></textarea></div>
-      </div>
-      <div class="card form-section">
-        <div class="panel-head"><h3>𝑶 𝑪𝒉𝒂𝒎𝒂𝒅𝒐</h3></div>
-        <div class="form-grid">
-          <div class="field"><label>Manifestação</label><textarea data-bind="manifestation"></textarea></div>
-          <div class="field"><label>Símbolo / Marca</label><textarea data-bind="mark"></textarea></div>
-          <div class="field"><label>Primeiro contato</label><textarea data-bind="firstContact"></textarea></div>
-        </div>
-      </div>
-    </div>
-    <aside>
-      <div class="card form-section">
-        <div class="panel-head"><h3>𝑨𝒕𝒓𝒊𝒃𝒖𝒕𝒐𝒔</h3><span class="meta">0 — 35</span></div>
-        <div class="stat-grid" id="attributes"></div>
-      </div>
-      <div class="card form-section">
-        <div class="panel-head"><h3>𝑺𝒕𝒂𝒕𝒖𝒔</h3><span class="meta">AUTO</span></div>
-        <div class="status-grid" id="statusGrid"></div>
-      </div>
-      <div class="card">
-        <div class="panel-head"><h3>𝑽𝒊́𝒏𝒄𝒖𝒍𝒐</h3></div>
-        <div id="bondSummary" class="info-empty">Nenhum vínculo registrado.</div>
-        <button class="btn primary" style="margin-top:12px;width:100%" data-page-jump="mythology">EXPLORAR PANTEÕES</button>
-      </div>
-    </aside>
-  </div>
-  <div class="section-title"><div><div class="eyebrow">PERÍCIAS</div><h3>𝑷𝒆𝒓𝒊́𝒄𝒊𝒂𝒔</h3></div></div>
-  <div class="card"><div id="skillsList" class="skill-list"></div></div>
-</section>
-
-<section id="skills" class="page">
-  <div class="section-title"><div><div class="eyebrow">EVOLUÇÃO • NÍVEL <span id="skillLevelLabel">1</span></div><h3>Skill Tree</h3></div></div>
-  <div class="card">
-    <div class="tree-toolbar">
-      <div class="points">PONTOS DISPONÍVEIS: <strong id="pointsAvailable">0</strong> <span style="color:#777">/</span> <span id="pointsTotal">0</span></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="changeTree">ALTERNAR CLASSE</button><button class="btn danger" id="resetTree">RESETAR ÁRVORE</button></div>
-    </div>
-    <div class="tree-shell">
-      <div class="tree"><div id="treeInner" class="tree-inner"><svg id="treeLines" class="tree-lines" width="100%" height="100%"></svg><div id="nodes"></div></div></div>
-      <aside class="card tree-info" id="nodeInfo"><div class="info-empty">Selecione um nó para consultar o registro. Nós disponíveis acendem quando seus requisitos são cumpridos.</div></aside>
-    </div>
-  </div>
-</section>
-
-<section id="system" class="page">
-  <div class="section-title"><div><div class="eyebrow">REGRAS • D5</div><h3>Sistema de Testes</h3></div></div>
-  <div class="system-grid">
-    <div class="card">
-      <div class="panel-head"><h3>Oráculo de Dados</h3><span class="meta">3 × D5</span></div>
-      <div class="rollbox">
-        <div class="field"><label>Atributo</label><select id="rollAttr"></select></div>
-        <div class="field"><label>Bônus da perícia</label><input id="rollSkill" type="number" value="0"></div>
-        <div class="field"><label>Modificadores</label><input id="rollMod" type="number" value="0"></div>
-        <div class="field"><label>Dificuldade</label><input id="rollDiff" type="number" value="15"></div>
-      </div>
-      <button class="btn primary" id="rollBtn" style="margin-top:13px;width:100%">ROLAR 3D5</button>
-      <div class="roll-result" id="rollResult">Aguardando o lançamento...</div>
-    </div>
-    <div class="card">
-      <div class="panel-head"><h3>Resultados</h3></div>
-      <div class="table-wrap"><table><thead><tr><th>Resultado</th><th>Regra</th></tr></thead><tbody>
-        <tr><td>FALHA CRÍTICA</td><td>Todos os dados mostram 1.</td></tr>
-        <tr><td>FALHA</td><td>Resultado abaixo da dificuldade.</td></tr>
-        <tr><td>SUCESSO</td><td>Resultado igual ou acima da dificuldade.</td></tr>
-        <tr><td>SUCESSO CRÍTICO</td><td>Todos os dados mostram 5.</td></tr>
-      </tbody></table></div>
-    </div>
-  </div>
-  <div class="section-title"><div><div class="eyebrow">REFERÊNCIA</div><h3>Dificuldades</h3></div></div>
-  <div class="card table-wrap"><table><thead><tr><th>Valor</th><th>Classificação</th></tr></thead><tbody>
-    <tr><td>5</td><td>Muito Fácil</td></tr><tr><td>10</td><td>Fácil</td></tr><tr><td>15</td><td>Normal</td></tr><tr><td>20</td><td>Difícil</td></tr><tr><td>25</td><td>Muito Difícil</td></tr><tr><td>30</td><td>Extremo</td></tr><tr><td>35+</td><td>Divino</td></tr>
-  </tbody></table></div>
-  <div class="section-title"><div><div class="eyebrow">FÓRMULAS</div><h3>Status automáticos</h3></div></div>
-  <div class="grid3">
-    <div class="card"><h4>PV</h4><p>50 + (Vigor × 10)</p></div><div class="card"><h4>PE</h4><p>30 + (Espírito × 5)</p></div><div class="card"><h4>Defesa</h4><p>Igual ao Vigor.</p></div>
-    <div class="card"><h4>Redução de Dano</h4><p>⌊Defesa ÷ 2⌋. O dano recebido nunca fica abaixo de 1.</p></div><div class="card"><h4>Iniciativa</h4><p>Agilidade + Percepção.</p></div><div class="card"><h4>Velocidade</h4><p>5 + Agilidade.</p></div>
-  </div>
-</section>
-
-<section id="lore" class="page">
-  <div class="section-title"><div><div class="eyebrow">ARQUIVO • RESTRITO</div><h3>O Chamado</h3></div></div>
-  <div class="card lore">
-    <p>Durante séculos, humanos trataram histórias sobre deuses, monstros e heróis como simples mitologia.</p>
-    <p>Mas os antigos nunca desapareceram.</p>
-    <p>Olympus, Asgard, criaturas e artefatos continuam existindo longe dos olhos da maioria dos mortais.</p>
-    <p>Então algo mudou.</p>
-    <p>Criaturas começaram a aparecer onde não deveriam.</p><p>Artefatos antigos começaram a despertar.</p>
-    <p>Algumas pessoas começaram a sonhar com lugares que nunca visitaram.</p><p>Outras começaram a ver símbolos.</p><p>Algumas escutam sussurros.</p><p>Outras acordam com uma certeza estranha de que precisam encontrar alguma coisa.</p>
-    <p>Os deuses conhecem relatos antigos sobre esse fenômeno.</p><p>Um nome aparece repetidamente:</p>
-    <p class="quote">O CHAMADO.</p>
-    <p>Ninguém sabe de onde veio.</p><p>Ninguém sabe quem poderá ouvi-lo.</p><p>Ninguém sabe para onde ele leva.</p><p>E ninguém sabe por que começou agora.</p>
-    <p>Enquanto os deuses observam em silêncio, caminhos que jamais deveriam se cruzar começam a convergir.</p>
-    <p class="quote">Talvez seja coincidência.<br>Talvez seja destino.<br>Ou talvez o Chamado já tenha escolhido seus primeiros nomes.</p>
-  </div>
-</section>
-
-<section id="mythology" class="page">
-  <div class="section-title"><div><div class="eyebrow">PANTEÕES</div><h3>Mitologia</h3></div></div>
-  <div class="gods-layout">
-    <div class="card"><div class="panel-head"><h3>☉ Grego</h3><span class="meta">OLYMPUS</span></div><div id="greek" class="god-grid"></div></div>
-    <div class="card"><div class="panel-head"><h3>ᛟ Nórdico</h3><span class="meta">ASGARD & ALÉM</span></div><div id="norse" class="god-grid"></div></div>
-  </div>
-  <div class="section-title"><div><div class="eyebrow">RELAÇÕES</div><h3>Rivalidades conhecidas</h3></div></div>
-  <div class="card"><div id="rivals" class="rivals"></div></div>
-</section>
-
-<section id="save" class="page">
-  <div class="section-title"><div><div class="eyebrow">ARQUIVO LOCAL</div><h3>Salvamento & Transporte</h3></div></div>
-  <div class="save-grid">
-    <div class="card">
-      <div class="panel-head"><h3>Estado da ficha</h3></div>
-      <p style="color:var(--muted);font-size:.8rem;line-height:1.6">O sistema grava automaticamente no <code>localStorage</code> deste navegador.</p>
-      <div style="display:grid;gap:8px;margin-top:13px">
-        <button class="btn primary" id="saveNow">SALVAR AGORA</button>
-        <button class="btn" id="exportBtn">EXPORTAR JSON</button>
-        <button class="btn" id="generateCode">GERAR CÓDIGO</button>
-        <button class="btn danger" id="clearBtn">APAGAR DADOS</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="panel-head"><h3>Importar ficha</h3></div>
-      <div class="field"><label>JSON ou código gerado</label><textarea id="importArea" class="code-area" placeholder="Cole aqui o JSON exportado ou o código da ficha..."></textarea></div>
-      <button class="btn" id="importBtn" style="margin-top:9px;width:100%">IMPORTAR</button>
-    </div>
-  </div>
-</section>
-</div>
+<main>
+ <div class="head"><div><div class="eyebrow" id="eyebrow"></div><h2 class="title" id="title"></h2><p class="desc" id="desc"></p></div><div class="headBtns"><button class="btn" id="undo">↩ Desfazer</button><button class="btn" id="help">?</button></div></div>
+ <div class="stats"><div class="stat"><span>Nível</span><strong id="lv">1</strong></div><div class="stat"><span>Pontos totais</span><strong id="tp">0</strong></div><div class="stat"><span>Usados</span><strong id="up">0</strong></div><div class="stat"><span>Disponíveis</span><strong id="ap">0</strong></div></div>
+ <div class="tools"><input id="search" placeholder="🔎 Pesquisar habilidade..."><select id="filter"><option value="all">Todas</option><option value="available">Desbloqueáveis</option><option value="unlocked">Desbloqueadas</option><option value="locked">Bloqueadas</option></select></div>
+ <div class="treeWrap"><div class="tree" id="tree"></div></div>
 </main>
 </div>
-
-<nav class="mobile-nav" aria-label="Navegação móvel">
- <button data-page="home" class="active"><span>⌂</span>Início</button>
- <button data-page="character"><span>♙</span>Ficha</button>
- <button data-page="skills"><span>✦</span>Skills</button>
- <button data-page="system"><span>⚖</span>Sistema</button>
- <button data-page="mythology"><span>♜</span>Mitologia</button>
- <button data-page="save"><span>✧</span>Salvar</button>
-</nav>
 <div class="toast" id="toast"></div>
-
+<div class="modal" id="skillModal"><div class="card"><button class="close" id="closeSkill">×</button><div class="eyebrow" id="mr"></div><h2 id="mn" style="font-family:Georgia,serif;margin:5px 0"></h2><p id="md" class="desc"></p><div class="media" id="media"></div><div class="details"><div><b>Nível necessário</b><span id="ml"></span></div><div><b>Custo</b><span id="mc"></span></div><div><b>Requisito</b><span id="mreq"></span></div><div><b>Status</b><span id="ms"></span></div></div><button class="btn primary full" style="margin-top:10px" id="mbuy"></button></div></div>
+<div class="modal" id="codeModal"><div class="card"><button class="close" id="closeCode">×</button><div class="eyebrow">CALL OF GODS</div><h2 style="font-family:Georgia,serif">Build salva</h2><p class="desc">Copie este código para guardar ou enviar sua árvore.</p><textarea id="code" class="code" readonly></textarea><button class="btn primary full" id="copy">Copiar código</button></div></div>
 <script>
-"use strict";
-
-const STORAGE_KEY="callOfGods_save_v1";
-const ATTRS=["forca","agilidade","vigor","intelecto","percepcao","espirito"];
-const ATTR_LABEL={forca:"FORÇA",agilidade:"AGILIDADE",vigor:"VIGOR",intelecto:"INTELECTO",percepcao:"PERCEPÇÃO",espirito:"ESPÍRITO"};
-
-const skillGroups={
- "Combate":["Luta","Pontaria","Armas","Atletismo","Acrobacia"],
- "Conhecimento":["Heráldica","Religião","História","Mitologia","Arcana","Investigação"],
- "Sociais":["Oratória","Persuasão","Intimidação","Enganação","Diplomacia"],
- "Exploração":["Furtividade","Percepção","Sobrevivência","Medicina","Navegação"],
- "Mentais":["Intuição","Vontade","Conhecimento"]
+const DATA={
+Vanguarda:{icon:"⚔️",desc:"Combate direto, resistência, armas, mobilidade e proteção.",branches:{
+"Força":[["Impacto",1,1,null,"Aumenta a eficiência dos ataques físicos.","Comum"],["Força Bruta",3,2,"Impacto","+5% de dano físico por nível.","Incomum",3],["Golpe Pesado",5,2,"Força Bruta","+10% de impacto em ataques pesados.","Rara"],["Rompedor",7,3,"Golpe Pesado","Reduz parte da Defesa do alvo em ataques apropriados.","Rara"],["Fúria",10,3,"Rompedor","Com PV baixo, recebe bônus ofensivo.","Épica"],["Devastação",14,4,"Fúria","Aumenta o efeito de ataques consecutivos.","Lendária"],["Apoteose da Força",20,8,"Devastação","Habilidade suprema de força física.","Divina"]],
+"Defesa":[["Guarda",1,1,null,"Reduz parte do dano recebido.","Comum"],["Fortificado",3,2,"Guarda","+5% de resistência por nível.","Incomum",3],["Resiliência",5,2,"Fortificado","Melhora resistência a condições físicas.","Rara"],["Interposição",7,3,"Resiliência","Permite proteger um aliado em situações adequadas.","Rara"],["Muralha",10,3,"Interposição","Aumenta a eficiência defensiva.","Épica"],["Indestrutível",14,4,"Muralha","Grande resistência sob pressão.","Lendária"],["Último Bastião",20,8,"Indestrutível","Habilidade suprema de sobrevivência.","Divina"]],
+"Mobilidade":[["Passo Rápido",1,1,null,"Aumenta Velocidade.","Comum"],["Reação",3,2,"Passo Rápido","Melhora respostas a ataques.","Incomum"],["Esquiva",5,2,"Reação","Melhora testes de evasão.","Rara"],["Contra-Ataque",7,3,"Esquiva","Após uma boa esquiva, fortalece o próximo ataque.","Rara"],["Passo do Vanguarda",10,3,"Contra-Ataque","Reposicionamentos mais eficientes.","Épica"],["Velocidade Absoluta",14,4,"Passo do Vanguarda","Grande bônus de mobilidade.","Lendária"],["Movimento Divino",20,8,"Velocidade Absoluta","Habilidade suprema de mobilidade.","Divina"]],
+"Armas":[["Manejo",1,1,null,"Melhora testes com armas.","Comum"],["Precisão de Combate",3,2,"Manejo","Bônus para ataques controlados.","Incomum"],["Maestria",5,2,"Precisão de Combate","Melhora a eficiência do seu estilo de combate.","Rara"],["Golpe Técnico",8,3,"Maestria","Bônus quando usa estratégia em combate.","Épica"],["Mestre das Armas",12,4,"Golpe Técnico","Grande domínio marcial.","Lendária"]]}},
+Virtuoso:{icon:"🧭",desc:"Estratégia, investigação, furtividade, precisão, percepção e adaptação.",branches:{
+"Investigação":[["Observador",1,1,null,"Melhora Percepção.","Comum"],["Mente Analítica",3,2,"Observador","Bônus em investigação.","Incomum"],["Dedução",5,2,"Mente Analítica","Facilita conectar pistas.","Rara"],["Investigador",7,3,"Dedução","Grande eficiência em cenas de investigação.","Épica"],["Especialista",11,4,"Investigador","Escolha uma área para receber especialização.","Lendária"],["Mente Extraordinária",20,8,"Especialista","Habilidade suprema intelectual.","Divina"]],
+"Furtividade":[["Passo Preciso",1,1,null,"Melhora Furtividade.","Comum"],["Mãos Leves",3,2,"Passo Preciso","Melhora ações delicadas.","Incomum"],["Evasão",5,2,"Passo Preciso","Bônus para evitar ataques.","Rara"],["Sombra",7,3,"Mãos Leves","Melhora ações enquanto não foi percebido.","Épica"],["Fantasma",12,4,"Sombra","Grande bônus de furtividade.","Lendária"]],
+"Estrategia":[["Leitura de Situação",1,1,null,"Bônus para analisar conflitos.","Comum"],["Concentração",3,2,"Leitura de Situação","Melhora ações que exigem foco.","Incomum"],["Estratégia",5,2,"Concentração","Bônus após preparar uma ação.","Rara"],["Improviso",7,3,"Estratégia","Permite adaptar-se a situações inesperadas.","Épica"],["Adaptação",10,3,"Improviso","Recebe bônus após mudar de abordagem.","Épica"],["Versatilidade",14,4,"Adaptação","Melhora diferentes tipos de teste.","Lendária"],["Apoteose do Virtuoso",20,8,"Versatilidade","Habilidade suprema de adaptação.","Divina"]],
+"Influência":[["Oratória",1,1,null,"Melhora Oratória.","Comum"],["Persuasão",3,2,"Oratória","Bônus em negociação.","Incomum"],["Enganação",5,2,"Persuasão","Melhora blefes e disfarces.","Rara"],["Manipulação",8,3,"Enganação","Bônus quando conduz uma conversa.","Épica"],["Mestre Social",13,4,"Manipulação","Grande domínio social.","Lendária"]]}},
+Místico:{icon:"🔮",desc:"Poder divino, energia, rituais, proteção, oráculos e manifestações.",branches:{
+"Canalização":[["Canalização",1,1,null,"Melhora eficiência de poderes.","Comum"],["Fluxo Divino",3,2,"Canalização","Reduz o custo de determinadas manifestações.","Incomum"],["Controle de Energia",5,2,"Fluxo Divino","Melhora controle sobre energia divina.","Rara"],["Potência Divina",7,3,"Controle de Energia","Aumenta efeitos de poderes.","Épica"],["Ascensão",12,4,"Potência Divina","Amplifica manifestações poderosas.","Lendária"],["Avatar Divino",20,8,"Ascensão","Habilidade suprema de manifestação.","Divina"]],
+"Proteção":[["Vontade Arcana",1,1,null,"Melhora resistência espiritual.","Comum"],["Barreira Espiritual",3,2,"Vontade Arcana","Reduz efeitos sobrenaturais recebidos.","Incomum"],["Resistência Mística",5,2,"Barreira Espiritual","Melhora resistência a poderes.","Rara"],["Proteção Divina",7,3,"Resistência Mística","Pode proteger aliados em situações adequadas.","Épica"],["Santuário",12,4,"Proteção Divina","Grande melhoria defensiva sobrenatural.","Lendária"],["Apoteose Mística",20,8,"Santuário","Habilidade suprema de proteção.","Divina"]],
+"Oráculo":[["Visão Sobrenatural",1,1,null,"Percebe sinais sobrenaturais.","Comum"],["Presságio",3,2,"Visão Sobrenatural","Recebe bônus em situações previstas.","Incomum"],["Ritualista",5,2,"Presságio","Melhora ações ritualísticas.","Rara"],["Olhos do Oráculo",8,3,"Ritualista","Aumenta percepção de fenômenos ocultos.","Épica"],["Destino Revelado",13,4,"Olhos do Oráculo","Grande eficiência ao interpretar sinais.","Lendária"]],
+"Manifestação":[["Manifestação",1,1,null,"Permite desenvolver manifestações da classe.","Comum"],["Forma Divina",3,2,"Manifestação","Melhora uma manifestação escolhida.","Incomum"],["Milagre",6,3,"Forma Divina","Permite efeitos sobrenaturais mais amplos.","Épica"],["Milagre Maior",11,4,"Milagre","Aumenta a potência de uma manifestação.","Lendária"],["Transcendência",20,8,"Milagre Maior","Habilidade suprema de manifestação.","Divina"]]}}
 };
 
-const gods={
- greek:[
-  ["Zeus","Céu, trovão e soberania"],["Poseidon","Mar, terremotos e cavalos"],["Hades","Submundo e riquezas da terra"],
-  ["Ares","Guerra e conflito"],["Athena","Sabedoria e estratégia"],["Hermes","Mensagens, viagens e comércio"],
-  ["Apollo","Luz, música, profecia e cura"],["Artemis","Caça, natureza e lua"],["Hephaestus","Forja, fogo e artesanato"],
-  ["Aphrodite","Amor e beleza"],["Demeter","Agricultura e colheitas"],["Dionysus","Vinho, êxtase e festividade"],["Hebe","Juventude e vitalidade"]
- ],
- norse:[
-  ["Odin","Sabedoria, conhecimento e guerra"],["Thor","Trovão e proteção"],["Loki","Astúcia, mudança e travessura"],
-  ["Freyja","Amor, fertilidade e magia"],["Freyr","Fertilidade, prosperidade e paz"],["Tyr","Coragem, justiça e guerra"],
-  ["Heimdall","Vigilância e proteção da ponte"],["Baldr","Luz, beleza e bondade"],["Hel","Domínio dos mortos"]
- ]
-};
-const rivals=[
- ["Zeus","Odin","rivalidade / diferença de autoridade"],["Thor","Zeus","competição / força e trovão"],
- ["Ares","Tyr","guerra / códigos diferentes"],["Athena","Odin","sabedoria / estratégias distintas"],
- ["Hermes","Loki","astúcia / provocação"],["Hades","Hel","submundo / fronteiras diferentes"],
- ["Apollo","Baldr","luz / simbolismo"],["Dionysus","Athena","êxtase / ordem"],
- ["Loki","Hermes","competição de astúcia"],["Loki","Athena","incompatibilidade e provocação"],
- ["Loki","Ares","provocação"],["Loki","Dionysus","caos e celebração"]
-];
-
-function n(name,cost,req,desc,effect,x,y){
- return {id:name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-"),name,cost,req,desc,effect,x,y};
+const KEY="cogSkillTree_v2";
+let state=JSON.parse(localStorage.getItem(KEY)||"null")||{cls:"Vanguarda",level:1,spent:{},history:[]};
+let selected=null;
+const total=()=>Math.max(0,(state.level-1)*3);
+const used=()=>Object.values(state.spent).reduce((a,b)=>a+b,0);
+const sid=n=>state.cls+"::"+n;
+function obj(a){return{name:a[0],level:a[1],cost:a[2],req:a[3],desc:a[4],rarity:a[5],max:a[6]||1}}
+function find(n){for(const [branch,list] of Object.entries(DATA[state.cls].branches))for(const a of list)if(a[0]===n)return obj(a)}
+function isUnlocked(s){return (state.spent[sid(s.name)]||0)>0}
+function canBuy(s){return state.level>=s.level&&(!s.req||isUnlocked({name:s.req}))&&used()+s.cost<=total()&&(state.spent[sid(s.name)]||0)<s.max}
+function saveState(){localStorage.setItem(KEY,JSON.stringify(state))}
+function notify(t){const e=document.getElementById("toast");e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1800)}
+function render(){
+ const d=DATA[state.cls];document.getElementById("classes").innerHTML="";
+ for(const [name,x] of Object.entries(DATA)){const b=document.createElement("button");b.className="classBtn"+(name===state.cls?" active":"");b.innerHTML="<b>"+x.icon+" "+name+"</b><small>"+x.desc+"</small>";b.onclick=()=>{state.cls=name;state.spent={};state.history=[];saveState();render();notify("Classe alterada.");};document.getElementById("classes").appendChild(b)}
+ document.getElementById("level").value=state.level;document.getElementById("eyebrow").textContent=state.cls.toUpperCase();document.getElementById("title").textContent=d.icon+" "+state.cls;document.getElementById("desc").textContent=d.desc;
+ document.getElementById("lv").textContent=state.level;document.getElementById("tp").textContent=total();document.getElementById("up").textContent=used();document.getElementById("ap").textContent=total()-used();
+ renderTree();
 }
-const trees={
- Vanguarda:[
-  n("Impacto",1,"Início","Um fundamento de combate direto.","+1 em testes de Luta.",12,10),
-  n("Guarda",1,"Início","Aprende a proteger seu espaço.","+1 Defesa quando em postura defensiva.",32,10),
-  n("Passo Rápido",1,"Início","Movimentos curtos e agressivos.","+1 Iniciativa.",52,10),
-  n("Força Bruta",2,"Impacto","A força aplicada supera a técnica simples.","+2 em testes de Força para esforço físico.",12,25),
-  n("Fortificado",2,"Guarda","Treinamento para absorver impacto.","+2 PV por ponto de Vigor.",32,25),
-  n("Reação",2,"Passo Rápido","Resposta imediata ao perigo.","+1 em testes de Agilidade defensivos.",52,25),
-  n("Golpe Pesado",2,"Força Bruta","Ataques que carregam todo o peso do corpo.","+2 em Luta quando usando força bruta.",10,40),
-  n("Resiliência",2,"Fortificado","O corpo aprende a continuar.","+1 em testes contra fadiga.",30,40),
-  n("Esquiva",2,"Reação","Movimento eficiente para sair da linha de ataque.","+1 Defesa contra ataques que percebe.",50,40),
-  n("Rompedor",3,"Golpe Pesado","Golpes feitos para quebrar defesas.","+2 contra defesas fortificadas.",10,55),
-  n("Interposição",3,"Resiliência","Coloque-se entre o perigo e um aliado.","Pode reduzir dano de um aliado em 2, 1/rodada.",30,55),
-  n("Contra-Ataque",3,"Esquiva","Transforme uma abertura em resposta.","+2 no próximo ataque após uma esquiva bem-sucedida.",50,55),
-  n("Fúria",3,"Rompedor","Potência cresce sob pressão.","+2 dano físico enquanto abaixo de metade dos PV.",8,70),
-  n("Muralha",3,"Interposição","Uma presença difícil de atravessar.","+2 Defesa enquanto protegendo um aliado.",30,70),
-  n("Passo do Vanguarda",3,"Contra-Ataque","Avanço que combina defesa e ofensiva.","Após contra-ataque, mova-se sem penalidade.",52,70),
-  n("Devastação",4,"Fúria","Força concentrada em um único momento.","Uma vez por cena, +5 em um teste de Luta.",7,84),
-  n("Indestrutível",4,"Muralha","Persistência além do comum.","Uma vez por cena, permaneça com 1 PV ao cair a 0.",30,84),
-  n("Velocidade Absoluta",4,"Passo do Vanguarda","Aceleração no instante decisivo.","+3 Iniciativa.",53,84),
-  n("Instinto de Combate",3,"Fúria","O corpo reage antes da mente.","+2 em testes para evitar surpresa.",18,92),
-  n("Maestria Física",3,"Devastação","Controle refinado da própria força.","+1 em Força, Agilidade ou Vigor para uma cena, 1/cena.",43,92),
-  n("Mestre da Vanguarda",4,"Maestria Física","O caminho marcial encontra sua forma madura.","+2 em Luta e Atletismo.",30,101),
-  n("Apoteose da Vanguarda",5,"Mestre da Vanguarda","O corpo se torna um instrumento lendário.","Uma vez por cena, trate um teste físico como crítico se atingir a dificuldade.",30,115)
- ],
- Virtuoso:[
-  n("Observador",1,"Início","Nada passa despercebido facilmente.","+1 Percepção.",12,10),n("Mente Analítica",1,"Início","Organize pistas e informações.","+1 Investigação.",32,10),n("Passo Preciso",1,"Início","Movimento econômico.","+1 Acrobacia.",52,10),
-  n("Dedução",2,"Mente Analítica","Conecte pistas aparentemente isoladas.","+2 Investigação quando houver pistas.",32,25),n("Leitura de Situação",2,"Observador","Leia o cenário antes de agir.","+2 Percepção para compreender riscos.",12,25),n("Concentração",2,"Mente Analítica","Mantenha o foco sob pressão.","+2 em testes mentais contra distração.",52,25),
-  n("Mãos Leves",2,"Passo Preciso","Precisão manual e discrição.","+2 Furtividade para ações delicadas.",52,40),n("Evasão",2,"Passo Preciso","Saia do perigo sem desperdiçar movimento.","+1 Defesa contra efeitos percebidos.",12,40),
-  n("Investigador",3,"Dedução","O mundo deixa rastros.","+2 Investigação e +1 Percepção ao procurar pistas.",32,55),n("Estratégia",3,"Leitura de Situação","Planeje antes que o conflito comece.","Uma vez por cena, conceda +2 a um aliado.",12,55),
-  n("Memória Treinada",3,"Concentração","Retenção excepcional de detalhes.","Pode recordar uma informação previamente observada.",52,55),n("Improviso",3,"Mãos Leves","Adapte ferramentas e circunstâncias.","+2 em testes feitos sem equipamento ideal.",72,55),n("Influência",3,"Evasão","Controle social sem confronto direto.","+2 Persuasão ou Diplomacia 1/cena.",12,70),
-  n("Especialista",4,"Investigador","Conhecimento aprofundado em uma área.","Escolha uma perícia: +3 permanente.",32,75),n("Adaptação",4,"Improviso","Mude de abordagem sem perder o ritmo.","Uma vez por cena, troque o atributo usado em um teste apropriado.",60,75),n("Versatilidade",4,"Memória Treinada","Experiência acumulada em muitos caminhos.","+1 em três perícias à escolha.",50,88),
-  n("Mestre do Virtuoso",4,"Versatilidade","O pensamento vira ferramenta universal.","Uma vez por cena, transforme uma falha em sucesso se houver abordagem plausível.",38,102),
-  n("Apoteose do Virtuoso",5,"Mestre do Virtuoso","A mente encontra caminhos onde não havia estrada.","Uma vez por cena, receba +5 em qualquer perícia.",38,116)
- ],
- Místico:[
-  n("Canalização",1,"Início","Abra espaço para a energia sobrenatural.","+1 Espírito.",12,10),n("Vontade Arcana",1,"Início","A vontade sustenta o inexplicável.","+1 Vontade.",32,10),n("Visão Sobrenatural",1,"Início","Perceba o que os olhos comuns não veem.","+1 Percepção contra fenômenos sobrenaturais.",52,10),
-  n("Fluxo Divino",2,"Canalização","A energia circula sem ruptura.","+2 PE.",12,25),n("Manifestação",2,"Canalização","Dê forma temporária ao sobrenatural.","+2 em testes de Espírito para manifestar.",32,25),n("Barreira Espiritual",2,"Vontade Arcana","Erga uma defesa contra forças estranhas.","+2 contra efeitos sobrenaturais.",52,25),n("Presságio",2,"Visão Sobrenatural","Sinais aparecem antes dos acontecimentos.","Uma vez por cena, peça ao narrador um presságio breve.",72,25),
-  n("Resistência Mística",3,"Barreira Espiritual","O corpo suporta energia sobrenatural.","+2 resistência a efeitos sobrenaturais.",12,45),n("Ritualista",3,"Manifestação","Ritos exigem método e precisão.","+2 em testes para preparar ou compreender rituais.",32,45),n("Potência Divina",3,"Fluxo Divino","A energia manifesta-se com mais força.","+2 em efeitos de poder sobrenatural.",52,45),n("Controle de Energia",3,"Manifestação","Evite desperdício e colapso.","Reduza em 1 um custo narrativo de uma manifestação, 1/cena.",72,45),n("Proteção Divina",3,"Barreira Espiritual","Uma presença protetora responde ao chamado.","+2 em testes para proteger outro personagem.",92,45),
-  n("Olhos do Oráculo",4,"Presságio","Veja padrões escondidos no ruído.","Uma vez por cena, obtenha +3 Percepção em uma leitura.",72,66),n("Ascensão",4,"Potência Divina","A energia atravessa os limites do mortal.","+2 Espírito para uma cena, 1/cena.",52,66),n("Milagre",4,"Proteção Divina","Um gesto impossível encontra passagem.","Uma vez por cena, +4 em um teste de apoio ou cura.",92,66),
-  n("Avatar Divino",5,"Ascensão","Por um instante, o vínculo parece ganhar forma.","Uma vez por cena, trate um efeito sobrenatural como se tivesse +5 de potência.",52,90),
-  n("Apoteose Mística",5,"Avatar Divino","O Chamado responde àquele que o escuta.","Uma vez por cena, transforme uma manifestação em sucesso crítico se atingir a dificuldade.",52,112)
- ]
-};
-
-let state=defaultState();
-let selectedNode=null;
-
-function defaultState(){
- let attrs={};ATTRS.forEach(a=>attrs[a]=0);
- let skills={};Object.values(skillGroups).flat().forEach(s=>skills[s]=0);
- return {version:1,name:"",age:"",race:"",origin:"",class:"",bond:"",title:"",personality:"",likes:"",dislikes:"",fears:"",goals:"",history:"",manifestation:"",mark:"",firstContact:"",level:1,attrs,skills,unlocked:{Vanguarda:[],Virtuoso:[],Místico:[]}};
-}
-function mergeState(raw){
- const d=defaultState(); if(!raw||typeof raw!=="object") return d;
- Object.keys(d).forEach(k=>{if(k in raw && k!=="attrs"&&k!=="skills"&&k!=="unlocked") d[k]=raw[k]});
- d.attrs={...d.attrs,...(raw.attrs||{})}; d.skills={...d.skills,...(raw.skills||{})};
- d.unlocked={...d.unlocked,...(raw.unlocked||{})}; return d;
-}
-function persist(show=true){
- localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); document.getElementById("saveState").textContent="SALVO • "+new Date().toLocaleTimeString("pt-BR");
- if(show) toast("Ficha salva no oráculo.");
-}
-function load(){
- try{const raw=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null"); if(raw) state=mergeState(raw)}catch(e){console.warn(e)}
-}
-function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),2300)}
-function bindFields(){
- document.querySelectorAll("[data-bind]").forEach(el=>{
-  const key=el.dataset.bind; el.value=state[key]??"";
-  el.addEventListener("input",()=>{state[key]=el.value; if(key==="class") {renderAll();} persist(false)});
-  el.addEventListener("change",()=>{state[key]=el.value; if(key==="class") renderAll(); persist(false)});
- });
-}
-function renderAttrs(){
- const root=document.getElementById("attributes");root.innerHTML="";
- ATTRS.forEach(a=>{
-  const wrap=document.createElement("div");wrap.className="stat";
-  wrap.innerHTML=`<div class="stat-head"><span class="stat-name">${ATTR_LABEL[a]}</span><span class="stat-value">${state.attrs[a]}</span></div><div class="stat-controls"><button aria-label="Diminuir ${a}" data-attr="${a}" data-delta="-1">−</button><button aria-label="Aumentar ${a}" data-attr="${a}" data-delta="1">+</button></div>`;
-  root.appendChild(wrap);
- });
- root.querySelectorAll("button").forEach(b=>b.onclick=()=>{let a=b.dataset.attr;state.attrs[a]=Math.max(0,Math.min(35,state.attrs[a]+Number(b.dataset.delta)));renderAll();persist(false)});
-}
-function statusValues(){
- const a=state.attrs;
- return {PV:50+a.vigor*10,PE:30+a.espirito*5,Defesa:a.vigor,"Redução de Dano":Math.floor(a.vigor/2),Iniciativa:a.agilidade+a.percepcao,Velocidade:5+a.agilidade};
-}
-function renderStatus(){
- const root=document.getElementById("statusGrid"),s=statusValues();root.innerHTML=Object.entries(s).map(([k,v])=>`<div class="status-box"><small>${k}</small><strong>${v}</strong></div>`).join("");
- document.getElementById("classBadge").textContent=(state.class||"SEM CLASSE").toUpperCase();
- const b=document.getElementById("bondSummary");b.innerHTML=state.bond?`<strong>${esc(state.bond)}</strong><p style="color:var(--muted);font-size:.76rem;line-height:1.5;margin:8px 0 0">Vínculo registrado na ficha. Benefícios específicos podem ser detalhados pelo mestre.</p>`:"Nenhum vínculo registrado.";
-}
-function renderSkills(){
- const root=document.getElementById("skillsList");root.innerHTML="";
- Object.entries(skillGroups).forEach(([group,list])=>{
-  const div=document.createElement("div");div.className="skill-group";div.innerHTML=`<h5>${group}</h5>`+list.map(s=>`<div class="skill-row"><label>${s}</label><input type="number" min="-99" max="99" value="${state.skills[s]??0}" data-skill="${s}"></div>`).join("");
-  root.appendChild(div);
- });
- root.querySelectorAll("input").forEach(i=>i.oninput=()=>{state.skills[i.dataset.skill]=Number(i.value)||0;persist(false)});
-}
-function renderClassCards(){ }
 function renderTree(){
- const cls=state.class&&trees[state.class]?state.class:"Vanguarda", data=trees[cls];
- document.getElementById("skillLevelLabel").textContent=state.level;
- const total=Math.max(0,(Number(state.level)-1)*3), spent=(state.unlocked[cls]||[]).reduce((sum,id)=>sum+(data.find(n=>n.id===id)?.cost||0),0);
- document.getElementById("pointsTotal").textContent=total;document.getElementById("pointsAvailable").textContent=Math.max(0,total-spent);
- const inner=document.getElementById("treeInner"); inner.style.height=(Math.max(760, Math.max(...data.map(n=>n.y))+70))+"px";
- const nodes=document.getElementById("nodes");nodes.innerHTML="";
- const svg=document.getElementById("treeLines");svg.setAttribute("viewBox",`0 0 850 ${inner.offsetHeight||800}`);svg.innerHTML="";
- data.forEach(n=>{
-  if(n.req!=="Início"){const p=data.find(x=>x.name===n.req);if(p){const line=document.createElementNS("http://www.w3.org/2000/svg","line");line.setAttribute("x1",p.x*8.5);line.setAttribute("y1",p.y*7);line.setAttribute("x2",n.x*8.5);line.setAttribute("y2",n.y*7);if((state.unlocked[cls]||[]).includes(p.id))line.classList.add("live");svg.appendChild(line)}}
- });
- data.forEach(n=>{
-  const unlocked=(state.unlocked[cls]||[]).includes(n.id), parentOk=n.req==="Início"||(state.unlocked[cls]||[]).includes(data.find(x=>x.name===n.req)?.id);
-  const available=!unlocked&&parentOk&&Math.max(0,total-spent)>=n.cost;
-  const el=document.createElement("button");el.className="node "+(unlocked?"unlocked":available?"available":"locked");el.style.left=(n.x*8.5)+"px";el.style.top=(n.y*7)+"px";el.innerHTML=`<div class="node-name">${esc(n.name)}</div><div class="node-cost">${unlocked?"DESBLOQUEADO":"CUSTO "+n.cost}</div>`;
-  el.onclick=()=>selectNode(n,cls);nodes.appendChild(el);
- });
- if(selectedNode){const found=data.find(n=>n.id===selectedNode.id);if(found)selectNode(found,cls);else document.getElementById("nodeInfo").innerHTML='<div class="info-empty">Selecione um nó.</div>'}
+ const root=document.getElementById("tree");root.innerHTML="";const q=document.getElementById("search").value.toLowerCase(),f=document.getElementById("filter").value;
+ for(const [branch,list] of Object.entries(DATA[state.cls].branches)){
+  const sec=document.createElement("section");sec.className="branch";sec.innerHTML='<div class="branchTitle">'+branch+'</div><div class="nodes"></div>';const box=sec.querySelector(".nodes");
+  for(const a of list){const s=obj(a),spent=state.spent[sid(s.name)]||0,ok=canBuy(s),status=isUnlocked(s)?"unlocked":ok?"available":"locked";if(q&&!(`${s.name} ${s.desc} ${branch}`).toLowerCase().includes(q))continue;if(f!=="all"&&f!==status)continue;
+   const n=document.createElement("article");n.className="node "+status;n.innerHTML='<span class="levelPill">Nível '+s.level+'</span><div class="rarity">'+s.rarity+'</div><h3>'+s.name+'</h3><p>'+s.desc+'</p><div class="meta">Custo: '+s.cost+'</div><div class="meta">Progresso: '+spent+'/'+s.max+'</div><div class="progress"><i style="width:'+Math.min(100,spent/s.max*100)+'%"></i></div><button class="buy" '+(!ok?"disabled":"")+'>'+((spent>0&&s.max>1)?"Aprimorar":"Desbloquear")+'</button>';
+   n.querySelector(".buy").onclick=e=>{e.stopPropagation();buy(s.name)};let timer; n.addEventListener("click",()=>openSkill(s));n.addEventListener("pointerdown",e=>{if(e.pointerType==="touch")timer=setTimeout(()=>openSkill(s),450)});["pointerup","pointercancel","pointerleave"].forEach(x=>n.addEventListener(x,()=>clearTimeout(timer)));box.appendChild(n);
+  }if(box.children.length)root.appendChild(sec);
+ }
 }
-function selectNode(n,cls){
- selectedNode=n; const data=trees[cls], total=(state.level-1)*3,spent=(state.unlocked[cls]||[]).reduce((s,id)=>s+(data.find(x=>x.id===id)?.cost||0),0);
- const unlocked=(state.unlocked[cls]||[]).includes(n.id), parent=n.req==="Início"||(state.unlocked[cls]||[]).includes(data.find(x=>x.name===n.req)?.id), enough=total-spent>=n.cost;
- const can=!unlocked&&parent&&enough;
- const info=document.getElementById("nodeInfo");
- info.innerHTML=`<div class="meta">${cls.toUpperCase()}</div><h3 class="info-name">${esc(n.name)}</h3><div style="color:#a79fac;font-size:.78rem">${esc(n.desc)}</div><div class="info-effect"><strong>Efeito</strong><br>${esc(n.effect)}</div><div class="requirements"><strong>Custo:</strong> ${n.cost}<br><strong>Requisito:</strong> ${esc(n.req)}<br><strong>Estado:</strong> ${unlocked?"Desbloqueado":!parent?"Bloqueado pelo requisito":!enough?"Pontos insuficientes":"Disponível"}</div>${!unlocked?`<button class="btn primary" ${can?"":"disabled"} id="unlockBtn" style="width:100%;margin-top:15px">${can?"DESBLOQUEAR":"BLOQUEADO"}</button>`:""}`;
- const btn=document.getElementById("unlockBtn");if(btn&&can)btn.onclick=()=>unlockNode(n,cls);
-}
-function unlockNode(n,cls){
- const data=trees[cls], total=(state.level-1)*3, spent=(state.unlocked[cls]||[]).reduce((s,id)=>s+(data.find(x=>x.id===id)?.cost||0),0);
- if(spent+n.cost>total)return toast("Pontos insuficientes.");
- const parent=n.req==="Início"||state.unlocked[cls].includes(data.find(x=>x.name===n.req)?.id);
- if(!parent)return toast("Requisito ainda não cumprido.");
- state.unlocked[cls].push(n.id);selectedNode=n;renderTree();persist();toast(`${n.name} desbloqueado.`);
-}
-function resetTree(){
- const cls=state.class&&trees[state.class]?state.class:"Vanguarda";if(!state.unlocked[cls].length)return toast("Nenhum ponto gasto nesta árvore.");
- if(!confirm("Resetar todos os nós desbloqueados desta classe? Os pontos serão devolvidos."))return;
- state.unlocked[cls]=[];selectedNode=null;renderTree();persist();toast("Árvore resetada.");
-}
-function renderGods(){
- ["greek","norse"].forEach((id,i)=>{document.getElementById(id).innerHTML=gods[i?"norse":"greek"].map(g=>`<article class="god"><h4>${g[0]}</h4><p>${g[1]}</p></article>`).join("")});
- document.getElementById("rivals").innerHTML=rivals.map(r=>`<div class="rival"><span>${r[0]} × ${r[1]}</span><small>${r[2]}</small></div>`).join("");
-}
-function setupNav(){
- const go=page=>{
-  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));
-  document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
-  window.scrollTo({top:0,behavior:"smooth"});
- };
- document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>go(b.dataset.page));
- document.querySelectorAll("[data-page-jump]").forEach(b=>b.onclick=()=>go(b.dataset.pageJump));
-}
-function setupSystem(){
- const sel=document.getElementById("rollAttr");sel.innerHTML=ATTRS.map(a=>`<option value="${a}">${ATTR_LABEL[a]}</option>`).join("");
- document.getElementById("rollBtn").onclick=()=>{
-  const dice=[1,2,3].map(()=>Math.floor(Math.random()*5)+1), attr=state.attrs[sel.value], skill=Number(document.getElementById("rollSkill").value)||0, mod=Number(document.getElementById("rollMod").value)||0,diff=Number(document.getElementById("rollDiff").value)||0;
-  const sum=dice.reduce((a,b)=>a+b,0), total=sum+attr+skill+mod;
-  const criticalFail=dice.every(d=>d===1),criticalSuccess=dice.every(d=>d===5);
-  const result=criticalFail?"FALHA CRÍTICA":criticalSuccess?"SUCESSO CRÍTICO":total>=diff?"SUCESSO":"FALHA";
-  document.getElementById("rollResult").innerHTML=`<strong>${result}</strong><div style="margin-top:5px;color:#aaa">3D5: ${dice.join(" • ")} | Atributo: ${attr} | Perícia: ${skill} | Mod.: ${mod} | Total: <b>${total}</b> vs. ${diff}</div><div class="dice">${dice.map(d=>`<span class="die">${d}</span>`).join("")}</div>`;
- };
-}
-function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function collectAndPersist(){persist(false)}
-function exportJSON(){
- const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
- a.href=url;a.download="call-of-gods-ficha.json";a.click();URL.revokeObjectURL(url);toast("JSON exportado.");
-}
-function encodeCode(){
- const bytes=new TextEncoder().encode(JSON.stringify(state));let bin="";bytes.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin);
-}
-function decodeCode(str){
- const bin=atob(str.trim()),bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));return JSON.parse(new TextDecoder().decode(bytes));
-}
-function generateCode(){document.getElementById("importArea").value=encodeCode();toast("Código gerado no campo de transporte.")}
-function importData(){
- const raw=document.getElementById("importArea").value.trim();if(!raw)return toast("Cole um JSON ou código.");
- try{
-  let parsed;try{parsed=JSON.parse(raw)}catch(e){parsed=decodeCode(raw)}
-  state=mergeState(parsed);bindFields();renderAll();persist();toast("Ficha importada com sucesso.");
- }catch(e){toast("Não foi possível importar: formato inválido.")}
-}
-function renderAll(){
- renderAttrs();renderStatus();renderSkills();renderTree();bindFields();
- const nm=state.name?.trim()||"NENHUM", cls=state.class||"NÃO DEFINIDA", lvl=Number(state.level)||1;
- const total=Math.max(0,(lvl-1)*3), treeCls=trees[cls]?cls:"Vanguarda", spent=(state.unlocked[treeCls]||[]).reduce((sum,id)=>sum+(trees[treeCls].find(n=>n.id===id)?.cost||0),0);
- const q=id=>document.getElementById(id);
- q("commandCharacter").textContent=nm.toUpperCase(); q("commandClass").textContent=cls.toUpperCase();
- q("dashName").textContent=nm.toUpperCase(); q("dashLevel").textContent=String(lvl).padStart(2,"0"); q("dashPoints").textContent=String(Math.max(0,total-spent)).padStart(2,"0");
- q("dashLevelMeter").style.width=Math.min(100,(lvl/20)*100)+"%";
-}
-
-document.getElementById("quickSave").onclick=()=>persist();
-document.getElementById("saveNow").onclick=()=>persist();
-document.getElementById("exportBtn").onclick=exportJSON;
-document.getElementById("generateCode").onclick=generateCode;
-document.getElementById("importBtn").onclick=importData;
-document.getElementById("resetTree").onclick=resetTree;
-document.getElementById("changeTree").onclick=()=>{
- const order=["Vanguarda","Virtuoso","Místico"],i=order.indexOf(state.class),next=order[(i+1)%order.length];state.class=next;renderAll();persist();toast("Classe da árvore: "+next);
-};
-document.getElementById("clearBtn").onclick=()=>{
- if(confirm("Apagar todos os dados locais desta ficha?")){localStorage.removeItem(STORAGE_KEY);state=defaultState();renderAll();persist();toast("Dados apagados.");}
-};
-
-load();setupNav();setupSystem();renderGods();renderAll();
-window.addEventListener("beforeunload",()=>localStorage.setItem(STORAGE_KEY,JSON.stringify(state)));
-window.addEventListener("resize",()=>{if(document.getElementById("skills").classList.contains("active"))renderTree()});
-for(let i=0;i<18;i++){const p=document.createElement("i");p.style.left=Math.random()*100+"%";p.style.animationDelay=(-Math.random()*8)+"s";p.style.animationDuration=(6+Math.random()*7)+"s";document.querySelector(".particles").appendChild(p)}
+function buy(n){const s=find(n);if(!s||!canBuy(s))return;state.spent[sid(n)]=(state.spent[sid(n)]||0)+s.cost;state.history.push({name:n,cost:s.cost});saveState();render();notify(n+" desbloqueada.");}
+function undo(){const h=state.history.pop();if(!h)return notify("Nada para desfazer.");state.spent[sid(h.name)]-=h.cost;if(state.spent[sid(h.name)]<=0)delete state.spent[sid(h.name)];saveState();render();notify("Compra desfeita.");}
+function openSkill(s){selected=s;const spent=state.spent[sid(s.name)]||0;document.getElementById("mr").textContent=s.rarity;document.getElementById("mn").textContent=s.name;document.getElementById("md").textContent=s.desc;document.getElementById("ml").textContent=s.level;document.getElementById("mc").textContent=s.cost+" ponto"+(s.cost>1?"s":"");document.getElementById("mreq").textContent=s.req||"Início da ramificação";document.getElementById("ms").textContent=isUnlocked(s)?"Desbloqueada ("+spent+"/"+s.max+")":canBuy(s)?"Desbloqueável":"Bloqueada";document.getElementById("media").innerHTML="<span>🎞️<br>Referência visual da habilidade<br><small style='opacity:.65'>Campo preparado para GIF/URL.</small></span>";const b=document.getElementById("mbuy");b.disabled=!canBuy(s);b.textContent=spent&&s.max>1?"Aprimorar":"Desbloquear";document.getElementById("skillModal").classList.add("open")}
+function exportBuild(){const p={v:2,class:state.cls,level:state.level,spent:state.spent};document.getElementById("code").value=btoa(unescape(encodeURIComponent(JSON.stringify(p))));document.getElementById("codeModal").classList.add("open")}
+function importBuild(){const c=prompt("Cole o código da build:");if(!c)return;try{const p=JSON.parse(decodeURIComponent(escape(atob(c.trim()))));if(!DATA[p.class]||p.level<1||p.level>20)throw 0;state={cls:p.class,level:p.level,spent:p.spent||{},history:[]};saveState();render();notify("Build importada.")}catch(e){alert("Código inválido.")}}
+document.getElementById("level").oninput=e=>{state.level=Math.max(1,Math.min(20,Number(e.target.value)||1));saveState();render()};
+document.getElementById("search").oninput=renderTree;document.getElementById("filter").onchange=renderTree;document.getElementById("undo").onclick=undo;document.getElementById("save").onclick=exportBuild;document.getElementById("import").onclick=importBuild;
+document.getElementById("reset").onclick=()=>{if(confirm("Resetar todos os pontos desta classe?")){state.spent={};state.history=[];saveState();render();notify("Árvore resetada.")}};
+document.getElementById("help").onclick=()=>alert("Clique em uma habilidade para ver seus detalhes. No celular, toque e segure. Habilidades exigem nível, pontos e, em alguns casos, um pré-requisito. O salvamento automático usa o navegador.");
+document.getElementById("closeSkill").onclick=()=>document.getElementById("skillModal").classList.remove("open");document.getElementById("closeCode").onclick=()=>document.getElementById("codeModal").classList.remove("open");
+document.getElementById("mbuy").onclick=()=>{if(selected)buy(selected.name);document.getElementById("skillModal").classList.remove("open")};
+document.getElementById("copy").onclick=async()=>{try{await navigator.clipboard.writeText(document.getElementById("code").value);notify("Código copiado.")}catch{document.getElementById("code").select()}};
+render();
 </script>
 </body>
 </html>
